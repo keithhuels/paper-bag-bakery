@@ -1,4 +1,4 @@
-import Navigation from "./components/navigation";
+import Navigation from "./components/navigation/navigation.component";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";

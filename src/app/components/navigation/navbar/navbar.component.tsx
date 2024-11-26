@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Logo from "./Logo";
+import Logo from "./logo.component";
 
 const NavBar = ({ toggle }: { toggle: () => void }): JSX.Element => {
   return (
