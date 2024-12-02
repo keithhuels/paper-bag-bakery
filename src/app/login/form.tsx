@@ -1,18 +1,28 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { signIn, SignInResponse } from "next-auth/react";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 export default function Form() {
+  const router = useRouter();
+  const [response, setResponse] = useState<SignInResponse | undefined>(
+    undefined,
+  );
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    signIn("credentials", {
+    const response = await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
       redirect: false,
     });
-    // console.log({ response });
+    setResponse(response);
+
+    if (!response?.error) {
+      router.push("/");
+      router.refresh();
+    }
   };
   return (
     <form onSubmit={handleLogin}>
@@ -27,7 +37,7 @@ export default function Form() {
           type="text"
           name="email"
           id="email"
-          className="flex justify-center rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm/6"
+          className="flex justify-center rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm/6"
           placeholder="Email"
           required
         ></input>
@@ -37,15 +47,24 @@ export default function Form() {
           type="password"
           name="password"
           id="password"
-          className="rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+          className="rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6"
           placeholder="Password"
           required
         ></input>
       </div>
+
+      <div className="flex justify-center mt-4">
+        {" "}
+        {response?.error === "CredentialsSignin" ? (
+          <p className="text-rose-500">
+            You have entered an invalid email or password.
+          </p>
+        ) : null}
+      </div>
       <div className="flex justify-center mt-4">
         <button
           type="submit"
-          className="h-10 rounded-lg border-2 font-bold bg-indigo-400 hover:bg-indigo-200 px-5 focus:bg-indigo-300"
+          className="h-10 rounded-lg border-2 font-bold bg-blue-400 hover:bg-blue-200 px-5 focus:bg-blue-300"
         >
           Login
         </button>

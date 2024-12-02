@@ -40,12 +40,12 @@ const Logo = () => {
           alt="Logo"
           width={"65"}
           height={width < 1024 ? "45" : "74"}
-          className="relative"
+          className="relative hover:border-2"
         />
       </Link>
       <div
         title="Home"
-        className="visible border-2"
+        className="visible"
         style={{
           display: showButton ? "block" : "none",
         }}

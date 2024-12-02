@@ -1,36 +1,67 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "./logo.component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRightFromBracket,
+  faRightToBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 
-const NavBar = ({ toggle }: { toggle: () => void }): JSX.Element => {
+const NavBar = ({
+  toggle,
+  session,
+}: {
+  toggle: () => void;
+  session: Session | null;
+}): JSX.Element => {
+  const handleLogout = () => {
+    signOut();
+  };
   return (
     <>
-      <div className="w-full h-20 border-t-2 border-b-2 border-indigo-200 sticky top-0">
+      <div className="w-full h-20 bg-zinc-200 border-2 border-zinc-400 sticky top-0">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
-            <Link href="/login">
-              <button className="h-10 rounded-lg border-2 font-bold bg-indigo-400 hover:bg-indigo-200 px-5 focus:bg-indigo-300">
-                Sign In
-              </button>
-            </Link>
+            {!!session && (
+              <div>
+                <p className="text-sm">
+                  You're signed in as {session.user?.email}
+                </p>
+                <button
+                  onClick={handleLogout}
+                  className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                >
+                  <FontAwesomeIcon icon={faRightFromBracket} /> Logout
+                </button>
+              </div>
+            )}
+            {!session && (
+              <Link href="/login">
+                <button className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
+                  <FontAwesomeIcon icon={faRightToBracket} /> Login
+                </button>
+              </Link>
+            )}
             <ul className="hidden md:flex gap-x-6 text-black">
               <li>
                 <Link href="/blog">
-                  <button className="hover:font-bold focus:shadow-md focus:text-indigo-800">
+                  <button className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
                     Blog
                   </button>
                 </Link>
               </li>
               <li>
                 <Link href="/services">
-                  <button className="hover:font-bold focus:shadow-lg focus:text-indigo-800">
+                  <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
                     Services
                   </button>
                 </Link>
               </li>
               <li>
                 <Link href="/contact">
-                  <button className="hover:font-bold focus:shadow-lg focus:text-indigo-800">
+                  <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
                     Contact
                   </button>
                 </Link>
@@ -45,7 +76,6 @@ const NavBar = ({ toggle }: { toggle: () => void }): JSX.Element => {
         className="inline-flex items-center md:hidden"
         onClick={toggle}
       >
-        {/* Menu icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="40"

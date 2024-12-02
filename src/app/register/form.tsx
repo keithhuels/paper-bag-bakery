@@ -12,7 +12,6 @@ export default function Form() {
         password: formData.get("password"),
       }),
     });
-    console.log({ response });
   };
   return (
     <form onSubmit={handleRegister}>
@@ -27,7 +26,7 @@ export default function Form() {
           type="text"
           name="email"
           id="email"
-          className="flex justify-center rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-400 sm:text-sm/6"
+          className="flex justify-center rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm/6"
           placeholder="Email"
           required
         ></input>
@@ -37,7 +36,7 @@ export default function Form() {
           type="password"
           name="password"
           id="password"
-          className="rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+          className="rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm/6"
           placeholder="Password"
           required
         ></input>
@@ -45,7 +44,7 @@ export default function Form() {
       <div className="flex justify-center mt-4">
         <button
           type="submit"
-          className="h-10 rounded-lg border-2 font-bold bg-indigo-400 hover:bg-indigo-200 px-5 focus:bg-indigo-300"
+          className="h-10 rounded-lg border-2 font-bold bg-blue-400 hover:bg-blue-200 px-5 focus:bg-blue-300"
         >
           Register
         </button>

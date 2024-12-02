@@ -4,6 +4,12 @@ import { compare } from "bcrypt";
 import { sql } from "@vercel/postgres";
 
 const handler = NextAuth({
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     CredentialsProvider({
       credentials: {
@@ -12,10 +18,22 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         //validate. Zod?
-        const response = await sql`
-        SELECT * WHERE email=${credentials?.email}`;
 
-        console.log({ credentials });
+        const response = await sql`
+        SELECT * FROM users WHERE email=${credentials?.email}`;
+        const user = response.rows[0];
+
+        const passwordCorrect = await compare(
+          credentials?.password || "",
+          user.password,
+        );
+
+        if (passwordCorrect) {
+          return {
+            id: user.id,
+            email: user.email,
+          };
+        }
         return null;
       },
     }),

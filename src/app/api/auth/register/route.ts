@@ -6,7 +6,6 @@ export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
     // validate email and password. Zod?
-    console.log({ email, password });
 
     const hashedPassword = await hash(password, 10);
 
@@ -14,8 +13,6 @@ export async function POST(request: Request) {
     INSERT INTO users(email, password)
     VALUES (${email}, ${hashedPassword})
     `;
-  } catch (e) {
-    console.log({ e });
-  }
+  } catch (e) {}
   return NextResponse.json({ message: "Success" });
 }
