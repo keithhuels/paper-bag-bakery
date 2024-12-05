@@ -11,8 +11,10 @@ export async function POST(request: Request) {
 
     const response = await sql`
     INSERT INTO users(email, password)
-    VALUES (${email}, ${hashedPassword})
+    VALUES (${email.toLowerCase()}, ${hashedPassword})
     `;
-  } catch (e) {}
+  } catch (e: any) {
+    return new NextResponse(e.message, { status: 400 });
+  }
   return NextResponse.json({ message: "Success" });
 }

@@ -17,22 +17,21 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials, req) {
-        //validate. Zod?
-
         const response = await sql`
-        SELECT * FROM users WHERE email=${credentials?.email}`;
+        SELECT * FROM users WHERE email=${credentials?.email.toLowerCase()}`;
         const user = response.rows[0];
 
-        const passwordCorrect = await compare(
-          credentials?.password || "",
-          user.password,
-        );
-
-        if (passwordCorrect) {
-          return {
-            id: user.id,
-            email: user.email,
-          };
+        if (user) {
+          const passwordCorrect = await compare(
+            credentials?.password || "",
+            user.password,
+          );
+          if (passwordCorrect) {
+            return {
+              id: user.id,
+              email: user.email,
+            };
+          }
         }
         return null;
       },

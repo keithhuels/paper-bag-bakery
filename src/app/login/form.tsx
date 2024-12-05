@@ -3,27 +3,56 @@ import { signIn, SignInResponse } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { z } from "zod";
+import { CredentialsProps } from "../components/error/error";
+import CredentialsErrorComponent from "../components/error/credentials-error.component";
+import CredentialsError from "../components/error/credentials-error.component";
 
 export default function Form() {
   const router = useRouter();
-  const [response, setResponse] = useState<SignInResponse | undefined>(
-    undefined,
-  );
+  const [displayErrorMessage, setDisplayErrorMessage] =
+    useState<CredentialsProps>({
+      shouldDisplay: false,
+    });
+
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const response = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
-      redirect: false,
-    });
-    setResponse(response);
 
-    if (!response?.error) {
-      router.push("/");
-      router.refresh();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const userSchema = z.object({
+      email: z.string().email(),
+      password: z.string(),
+    });
+
+    const validateInputResult = userSchema.safeParse({
+      email: email,
+      password: password,
+    });
+
+    if (validateInputResult.success) {
+      const signInResponse = await signIn("credentials", {
+        email: formData.get("email"),
+        password: formData.get("password"),
+        redirect: false,
+      });
+      if (!signInResponse?.error) {
+        router.push("/");
+        router.refresh();
+      } else {
+        setDisplayErrorMessage({
+          shouldDisplay: true,
+          signInError: signInResponse?.error,
+        });
+      }
+    } else {
+      const error = validateInputResult.error.format();
+      setDisplayErrorMessage({ shouldDisplay: true, inputError: error });
     }
   };
+
   return (
     <form onSubmit={handleLogin}>
       <label className="flex justify-center text-3xl font-medium text-gray-900 m-8">
@@ -55,11 +84,13 @@ export default function Form() {
 
       <div className="flex justify-center mt-4">
         {" "}
-        {response?.error === "CredentialsSignin" ? (
-          <p className="text-rose-500">
-            You have entered an invalid email or password.
-          </p>
-        ) : null}
+        {displayErrorMessage.shouldDisplay && (
+          <CredentialsError
+            inputError={displayErrorMessage.inputError}
+            signInError={displayErrorMessage.signInError}
+            registrationError={displayErrorMessage.registrationError}
+          />
+        )}
       </div>
       <div className="flex justify-center mt-4">
         <button
@@ -71,7 +102,7 @@ export default function Form() {
       </div>
       <div className="flex justify-center mt-4">
         <p className="text-sm">
-          No account?{" "}
+          Don't have an account?{" "}
           <Link href="/register">
             <button className="text-blue-500 hover:text-blue-300 focus:text-blue-200">
               Create one!

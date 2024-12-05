@@ -46,21 +46,21 @@ const NavBar = ({
             )}
             <ul className="hidden md:flex gap-x-6 text-black">
               <li>
-                <Link href="/blog">
+                <Link href={session ? "/blog" : "/login"}>
                   <button className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
                     Blog
                   </button>
                 </Link>
               </li>
               <li>
-                <Link href="/services">
+                <Link href={session ? "/services" : "/login"}>
                   <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
                     Services
                   </button>
                 </Link>
               </li>
               <li>
-                <Link href="/contact">
+                <Link href={session ? "/contact" : "/login"}>
                   <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
                     Contact
                   </button>
