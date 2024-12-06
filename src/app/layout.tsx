@@ -1,4 +1,3 @@
-import Navigation from "./components/navigation/navigation.component";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -8,6 +7,7 @@ import { getServerSession } from "next-auth";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 // Prevent fontawesome from adding its CSS since we did it manually above:
 import { config } from "@fortawesome/fontawesome-svg-core";
+import NavBar from "./components/navigation/navbar/navbar.component";
 config.autoAddCss = false; /* eslint-disable import/first */
 
 const geistSans = localFont({
@@ -32,12 +32,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navigation session={session} />
+        <NavBar session={session} />
         {children}
       </body>
     </html>

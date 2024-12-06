@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Logo from "./logo.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,14 +9,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const NavBar = ({
-  toggle,
-  session,
-}: {
-  toggle: () => void;
-  session: Session | null;
-}): JSX.Element => {
+const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
+  const router = useRouter();
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+      router.refresh();
+    }
+  }, [session]);
+
   const handleLogout = () => {
     signOut();
   };
@@ -71,11 +75,7 @@ const NavBar = ({
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        className="inline-flex items-center md:hidden"
-        onClick={toggle}
-      >
+      <button type="button" className="inline-flex items-center md:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="40"
