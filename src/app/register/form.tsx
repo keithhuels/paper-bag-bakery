@@ -1,11 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { z, ZodError, ZodFormattedError } from "zod";
+import { z } from "zod";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { Font } from "@react-email/components";
-import { CredentialsProps } from "../components/error/error";
+import { CredentialsError as CredentialsErrorType } from "../components/error/error";
 import CredentialsError from "../components/error/credentials-error.component";
 
 export default function Form() {
@@ -15,8 +14,7 @@ export default function Form() {
   const [passwordInputValue, setPasswordInputValue] = useState("");
   const [confirmPasswordInputValue, setConfirmPasswordInputValue] =
     useState("");
-  const [displayErrorMessage, setDisplayErrorMessage] =
-    useState<CredentialsProps>({ shouldDisplay: false });
+  const [error, setError] = useState<CredentialsErrorType>();
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,20 +53,17 @@ export default function Form() {
           password: formData.get("password"),
         }),
       });
-      if (response.ok && response.status === 200) {
-        router.push("/login");
-        router.refresh();
-        //send confirm email and route to login?
-      }
-      if (!response.ok) {
-        setDisplayErrorMessage({
-          shouldDisplay: true,
-          registrationError: response,
-        });
+      if (response.ok) {
+        if (response.status === 200) {
+          router.push("/login");
+          router.refresh();
+          //TODO: send confirm email and route to login
+        }
+      } else {
+        setError(response);
       }
     } else {
-      const error = validateInputResult.error.format();
-      setDisplayErrorMessage({ shouldDisplay: true, inputError: error });
+      setError(validateInputResult.error);
     }
   };
 
@@ -150,13 +145,7 @@ export default function Form() {
         </div>
       </div>
       <div className="flex justify-center mt-4">
-        {displayErrorMessage.shouldDisplay && (
-          <CredentialsError
-            inputError={displayErrorMessage.inputError}
-            signInError={displayErrorMessage.signInError}
-            registrationError={displayErrorMessage.registrationError}
-          />
-        )}
+        {error && <CredentialsError error={error} />}
       </div>
       <div className="flex justify-center mt-4">
         <button

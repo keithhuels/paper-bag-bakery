@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
 import { sql } from "@vercel/postgres";
+import Error from "next/error";
 
 export async function POST(request: Request) {
   try {
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
 
     const hashedPassword = await hash(password, 10);
 
-    const response = await sql`
+    await sql`
     INSERT INTO users(email, password)
     VALUES (${email.toLowerCase()}, ${hashedPassword})
     `;

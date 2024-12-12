@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "./logo.component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,9 +10,44 @@ import {
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import HamburgerMenu from "../hamburger-menu/hamburger-menu.component";
 
 const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const router = useRouter();
+
+  const useMediaQuery = (width: number) => {
+    const [targetReached, setTargetReached] = useState(false);
+
+    const updateTarget = useCallback((e: MediaQueryListEvent) => {
+      if (e.matches) {
+        setTargetReached(true);
+      } else {
+        setTargetReached(false);
+      }
+    }, []);
+
+    useEffect(() => {
+      const media = window.matchMedia(`(max-width: ${width}px)`);
+      let usingDeprecatedListener = false;
+      if (media.addEventListener) {
+        media.addEventListener("change", updateTarget);
+      } else {
+        usingDeprecatedListener = true;
+        media.addListener(updateTarget);
+      }
+      if (media.matches) {
+        setTargetReached(true);
+      }
+
+      return () =>
+        usingDeprecatedListener
+          ? media.removeListener(updateTarget)
+          : media.removeEventListener("change", updateTarget);
+    });
+
+    return targetReached;
+  };
+
   useEffect(() => {
     if (!session) {
       router.push("/login");
@@ -23,68 +58,69 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const handleLogout = () => {
     signOut();
   };
+
+  const isBreakpoint = useMediaQuery(768);
   return (
     <>
-      <div className="w-full h-20 bg-zinc-200 border-2 border-zinc-400 sticky top-0">
+      <div className="w-full h-30 bg-zinc-200 border-t-2 border-zinc-400 sticky top-0">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
-            {!!session && (
+            {!isBreakpoint ? (
               <div>
-                <p className="text-sm">
-                  You're signed in as {session.user?.email}
-                </p>
-                <button
-                  onClick={handleLogout}
-                  className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
-                >
-                  <FontAwesomeIcon icon={faRightFromBracket} /> Logout
-                </button>
+                <ul className="hidden md:flex gap-x-6 text-black">
+                  <li>
+                    <Link href={session ? "/blog" : "/login"}>
+                      <button className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
+                        Blog
+                      </button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href={session ? "/services" : "/login"}>
+                      <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
+                        Services
+                      </button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href={session ? "/contact" : "/login"}>
+                      <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
+                        Contact
+                      </button>
+                    </Link>
+                  </li>
+                </ul>
               </div>
+            ) : (
+              <HamburgerMenu session={session} />
             )}
-            {!session && (
+            <Logo />
+
+            {session ? (
+              <div>
+                <div className="mr-4">
+                  <p className="text-sm">You're signed in as:</p>
+                  <p className="text-blue-500 "> {session.user?.email}</p>
+                </div>
+                <div>
+                  <button
+                    onClick={handleLogout}
+                    className=" hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                  >
+                    <FontAwesomeIcon icon={faRightFromBracket} /> Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
               <Link href="/login">
-                <button className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
+                <button className="text-lg hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
                   <FontAwesomeIcon icon={faRightToBracket} /> Login
                 </button>
               </Link>
             )}
-            <ul className="hidden md:flex gap-x-6 text-black">
-              <li>
-                <Link href={session ? "/blog" : "/login"}>
-                  <button className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
-                    Blog
-                  </button>
-                </Link>
-              </li>
-              <li>
-                <Link href={session ? "/services" : "/login"}>
-                  <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
-                    Services
-                  </button>
-                </Link>
-              </li>
-              <li>
-                <Link href={session ? "/contact" : "/login"}>
-                  <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
-                    Contact
-                  </button>
-                </Link>
-              </li>
-            </ul>
-            <Logo />
           </div>
         </div>
       </div>
-      <button type="button" className="inline-flex items-center md:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 24 24"
-        >
-          <path fill="#fff" d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z" />
-        </svg>
-      </button>
     </>
   );
 };

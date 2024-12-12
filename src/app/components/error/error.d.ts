@@ -1,15 +1,10 @@
-import { ZodFormattedError } from "zod";
+import { SignInResponse } from "next-auth/react";
+import { ZodError } from "zod";
 
-export interface CredentialsProps {
-  shouldDisplay: boolean;
-  inputError?: ZodFormattedError<
-    {
-      email: string;
-      password: string;
-      confirmPassword?: string;
-    },
-    string
-  >;
-  signInError?: string;
-  registrationError?: Response;
+export interface AuthInputs {
+  email: string;
+  password: string;
+  confirmPassword?: string;
 }
+
+export type CredentialsError = SignInResponse | Response | ZodError<AuthInputs>;

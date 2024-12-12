@@ -1,19 +1,15 @@
 "use client";
-import { signIn, SignInResponse } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { z } from "zod";
-import { CredentialsProps } from "../components/error/error";
-import CredentialsErrorComponent from "../components/error/credentials-error.component";
+import { CredentialsError as CredentialsErrorType } from "../components/error/error";
 import CredentialsError from "../components/error/credentials-error.component";
 
 export default function Form() {
   const router = useRouter();
-  const [displayErrorMessage, setDisplayErrorMessage] =
-    useState<CredentialsProps>({
-      shouldDisplay: false,
-    });
+  const [error, setError] = useState<CredentialsErrorType>();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,12 +23,12 @@ export default function Form() {
       password: z.string(),
     });
 
-    const validateInputResult = userSchema.safeParse({
+    const inputValidation = userSchema.safeParse({
       email: email,
       password: password,
     });
 
-    if (validateInputResult.success) {
+    if (inputValidation.success) {
       const signInResponse = await signIn("credentials", {
         email: formData.get("email"),
         password: formData.get("password"),
@@ -42,14 +38,12 @@ export default function Form() {
         router.push("/");
         router.refresh();
       } else {
-        setDisplayErrorMessage({
-          shouldDisplay: true,
-          signInError: signInResponse?.error,
-        });
+        setError(signInResponse);
       }
-    } else {
-      const error = validateInputResult.error.format();
-      setDisplayErrorMessage({ shouldDisplay: true, inputError: error });
+    }
+
+    if (inputValidation.error) {
+      setError(inputValidation.error);
     }
   };
 
@@ -81,16 +75,8 @@ export default function Form() {
           required
         ></input>
       </div>
-
       <div className="flex justify-center mt-4">
-        {" "}
-        {displayErrorMessage.shouldDisplay && (
-          <CredentialsError
-            inputError={displayErrorMessage.inputError}
-            signInError={displayErrorMessage.signInError}
-            registrationError={displayErrorMessage.registrationError}
-          />
-        )}
+        {error && <CredentialsError error={error} />}
       </div>
       <div className="flex justify-center mt-4">
         <button

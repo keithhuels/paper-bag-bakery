@@ -34,22 +34,24 @@ const Logo = () => {
 
   return (
     <>
-      <Link href="/" style={{ display: showButton ? "none" : "block" }}>
-        <Image
-          src="/images/logo.png"
-          alt="Logo"
-          width={"65"}
-          height={width < 1024 ? "45" : "74"}
-          className="relative hover:border-2"
-        />
-      </Link>
-      <div
-        title="Home"
-        className="visible"
-        style={{
-          display: showButton ? "block" : "none",
-        }}
-      ></div>
+      <div className="block w-50">
+        <Link href="/" style={{ display: showButton ? "none" : "block" }}>
+          <Image
+            src="/images/conscious-cog-favicon.png"
+            alt="Logo"
+            width={"125"}
+            height={width < 1024 ? "45" : "74"}
+            className="flex relative hover:border-2"
+          />
+        </Link>
+        <div
+          title="Home"
+          className="visible"
+          style={{
+            display: showButton ? "block" : "none",
+          }}
+        ></div>
+      </div>
     </>
   );
 };
