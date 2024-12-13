@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import React, { FormEvent } from "react";
-import Form from "./form";
+import React from "react";
+import AuthForm from "../components/auth/auth-form.component";
 import { getServerSession } from "next-auth";
 
 export default async function LoginPage() {
@@ -10,5 +10,5 @@ export default async function LoginPage() {
     //redirect to dashboard?
     redirect("/");
   }
-  return <Form />;
+  return <AuthForm authFlow={"Login"} />;
 }

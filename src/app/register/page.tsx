@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import Form from "./form";
 import { redirect } from "next/navigation";
+import AuthForm from "../components/auth/auth-form.component";
 
 export default async function RegisterPage() {
   const session = await getServerSession();
@@ -8,5 +9,5 @@ export default async function RegisterPage() {
   if (session) {
     redirect("/");
   }
-  return <Form />;
+  return <AuthForm authFlow={"Create Account"} />;
 }
