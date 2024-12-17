@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth";
-import Form from "./form";
 import { redirect } from "next/navigation";
 import AuthForm from "../components/auth/auth-form.component";
 
