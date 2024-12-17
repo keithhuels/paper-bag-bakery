@@ -173,6 +173,8 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
             type="button"
             onMouseDown={() => setShowPassword(!showPassword)}
             onMouseUp={() => setShowPassword(!showPassword)}
+            onTouchStart={() => setShowPassword(!showPassword)}
+            onTouchEnd={() => setShowPassword(!showPassword)}
           >
             <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
           </button>
@@ -204,6 +206,8 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
               type="button"
               onMouseDown={() => setShowConfirmPassword(!showConfirmPassword)}
               onMouseUp={() => setShowConfirmPassword(!showConfirmPassword)}
+              onTouchStart={() => setShowConfirmPassword(!showConfirmPassword)}
+              onTouchEnd={() => setShowConfirmPassword(!showConfirmPassword)}
             >
               <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
             </button>
