@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Video from "next-video";
 import getStarted from "../../videos/get-started.mp4";
-import thoughtnet_intro from "../../videos/TNS_AnimatedInfographic_DidYouKnow.mp4.json";
+import thoughtnet_intro from "../../videos/TNS_AnimatedInfographic_DidYouKnow.mp4";
 export default function HomePage() {
   return (
     <>
