@@ -190,11 +190,12 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
               id="confirmPassword"
               value={confirmPasswordInputValue}
               onChange={(e) => setConfirmPasswordInputValue(e.target.value)}
-              className="mr-4 py-1.5 pr-10 text-gray-900 placeholder:text-gray-400 sm:text-sm/6"
+              className="mr-4 py-1.5 pr-10 text-gray-900 placeholder:text-blue-400 sm:text-sm/6"
               style={{ outline: "none" }}
               placeholder="Confirm Password"
               required
             ></input>
+
             <button
               id="toggleShowConfirmPassword"
               className={

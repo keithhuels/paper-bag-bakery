@@ -92,32 +92,55 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                 </ul>
               </div>
             ) : (
-              <HamburgerMenu session={session} />
+              <div className="ml-5">
+                <HamburgerMenu session={session} />
+              </div>
             )}
             <Logo />
-
-            {session ? (
-              <div>
-                <div className="mr-4">
-                  <p className="text-sm">You're signed in as:</p>
-                  <p className="text-blue-500 "> {session.user?.email}</p>
-                </div>
-                <div>
+            <div className="mr-5">
+              {!isBreakpoint &&
+                (session ? (
+                  <div>
+                    <div className="mr-4">
+                      <p className="text-sm">You're signed in as:</p>
+                      <p className="text-blue-500 "> {session.user?.email}</p>
+                    </div>
+                    <div>
+                      <button
+                        onClick={handleLogout}
+                        className=" hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                      >
+                        <FontAwesomeIcon icon={faRightFromBracket} /> Logout
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <Link href="/login">
+                    <button className="text-lg hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
+                      <FontAwesomeIcon icon={faRightToBracket} /> Login
+                    </button>
+                  </Link>
+                ))}
+              {isBreakpoint && session && (
+                <>
+                  <FontAwesomeIcon icon={faRightFromBracket} />
                   <button
                     onClick={handleLogout}
-                    className=" hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                    className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
                   >
-                    <FontAwesomeIcon icon={faRightFromBracket} /> Logout
+                    Logout
                   </button>
-                </div>
-              </div>
-            ) : (
-              <Link href="/login">
-                <button className="text-lg hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
-                  <FontAwesomeIcon icon={faRightToBracket} /> Login
-                </button>
-              </Link>
-            )}
+                </>
+              )}
+              {isBreakpoint && !session && (
+                <Link href="/login">
+                  <FontAwesomeIcon className="mr-1" icon={faRightToBracket} />
+                  <button className="text-lg hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
+                    Login
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>

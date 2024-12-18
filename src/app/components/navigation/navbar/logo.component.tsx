@@ -39,9 +39,9 @@ const Logo = () => {
           <Image
             src="/images/conscious-cog-favicon.png"
             alt="Logo"
-            width={"125"}
+            width={"200"}
             height={width < 1024 ? "45" : "74"}
-            className="flex relative hover:border-2"
+            className="flex relative"
           />
         </Link>
         <div

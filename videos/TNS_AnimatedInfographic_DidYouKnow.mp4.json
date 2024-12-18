@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/TNS_AnimatedInfographic_DidYouKnow.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "NBlBinS01CEy8VgX9nsB1M901XNJxbTKyOGiMDFR8wMfw",
+      "assetId": "sv9hcHeXvg001ZY2KldKqBRSH00AQy02N7BvQ3in00PT9Lg",
+      "playbackId": "Xs8xhyk01SKF8KWhgTOrlcr4f8zcUfs011dtJPYvtgeWo"
+    }
+  },
+  "createdAt": 1734557296646,
+  "updatedAt": 1734557669922,
+  "size": 52287872,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/Xs8xhyk01SKF8KWhgTOrlcr4f8zcUfs011dtJPYvtgeWo.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/Xs8xhyk01SKF8KWhgTOrlcr4f8zcUfs011dtJPYvtgeWo/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAABQAgCdASoQAAkAAQAcJbACdDBRAZkNipMNwAAA/v4Mf6llnQ9zsN7EgEEZxmTTlMc+KlzsflM9+H1n/+W64hael47Qyq/+vfH1k8eTHojOy1pd4lPU+DCR8DAtY9yqn9xeed/sf4wPjyGR/z2f4/H+OH+bdP7iu+SOaWvP/xTZcCfxvHAAAA=="
+}
