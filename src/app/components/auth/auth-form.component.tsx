@@ -57,7 +57,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
 
       if (response.ok) {
         if (response.status === 200) {
-          router.push("/login");
+          router.push("/verify-email");
           router.refresh();
           //TODO: send confirm email and route to login
         }
@@ -117,9 +117,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
         "An unknown input error occurred."
       );
     } else if (isRegistrationError) {
-      return error.status === 400
-        ? "There is already an account associated with this email."
-        : "An error occured and we were not able to register an account.";
+      return "An error occured and we were not able to register your account.";
     } else if (isSigninError) {
       return error.status === 401
         ? "Invalid email or password."
@@ -190,7 +188,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
               id="confirmPassword"
               value={confirmPasswordInputValue}
               onChange={(e) => setConfirmPasswordInputValue(e.target.value)}
-              className="mr-4 py-1.5 pr-10 text-gray-900 placeholder:text-blue-400 sm:text-sm/6"
+              className="mr-4 py-1.5 pr-10 text-gray-900 placeholder:text-gray-400 sm:text-sm/6"
               style={{ outline: "none" }}
               placeholder="Confirm Password"
               required

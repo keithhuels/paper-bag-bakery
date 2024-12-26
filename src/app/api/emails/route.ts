@@ -1,13 +1,27 @@
+"use server";
+
+import React from "react";
 import { Resend } from "resend";
-import Welcome from "@/emails/Welcome";
 
-const resend = new Resend("re_123456789");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST() {
-  await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
-    to: ["delivered@resend.dev"],
-    subject: "Hello World",
-    react: Welcome(),
-  });
+interface Email {
+  to: string[];
+  subject: string;
+  react: React.ReactElement;
 }
+
+export const sendEmail = async (payload: Email) => {
+  const { error } = await resend.emails.send({
+    from: "The Conscious Cog Team <onboarding@resend.dev>",
+    ...payload,
+  });
+
+  if (error) {
+    console.error("Error sending email", error);
+    return null;
+  }
+
+  console.log("Email sent successfully");
+  return true;
+};
