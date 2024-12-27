@@ -11,13 +11,10 @@ export default async function VerifyEmail({
   let message = "Verifying email...";
   let verified = false;
 
-  //for next 15 in the future...
-  const { token } = await searchParams;
-
-  if (token) {
+  if (searchParams.token) {
     const user = await sql`
     SELECT email FROM users
-    WHERE token = ${token}`;
+    WHERE token = ${searchParams.token}`;
 
     if (!user) {
       message = "User not found. Check your email for the verification link.";
@@ -25,7 +22,7 @@ export default async function VerifyEmail({
       await sql`
         UPDATE users
         SET verified = true, token = NULL
-        where token = ${token}`;
+        where token = ${searchParams.token}`;
 
       message = `Email verified!`;
       verified = true;
