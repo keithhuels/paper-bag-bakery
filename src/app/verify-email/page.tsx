@@ -11,10 +11,13 @@ export default async function VerifyEmail({
   let message = "Verifying email...";
   let verified = false;
 
-  if (searchParams.token) {
+  //for next 15 in the future...
+  const { token } = await searchParams;
+
+  if (token) {
     const user = await sql`
     SELECT email FROM users
-    WHERE token = ${searchParams.token}`;
+    WHERE token = ${token}`;
 
     if (!user) {
       message = "User not found. Check your email for the verification link.";
@@ -22,7 +25,7 @@ export default async function VerifyEmail({
       await sql`
         UPDATE users
         SET verified = true, token = NULL
-        where token = ${searchParams.token}`;
+        where token = ${token}`;
 
       message = `Email verified!`;
       verified = true;
@@ -46,16 +49,14 @@ export default async function VerifyEmail({
             {message}
           </p>
         </CardContent>
-        <footer>
-          {verified && (
-            <Link
-              href={"/login"}
-              className="bg-primary text-white text-sm font-medium hover:bg-primary/90 h-10 px-4 py-2 rounded-lg w-full text-center"
-            >
-              Sign in
-            </Link>
-          )}
-        </footer>
+        {verified && (
+          <Link
+            href={"/login"}
+            className="underline mb-4 bg-primary text-blue-600 text-lg font-medium hover:bg-primary/90 h-10 px-10 py-2 rounded-lg w-full text-center"
+          >
+            Sign in
+          </Link>
+        )}
       </Card>
     </div>
   );

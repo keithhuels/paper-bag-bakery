@@ -59,7 +59,6 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
         if (response.status === 200) {
           router.push("/verify-email");
           router.refresh();
-          //TODO: send confirm email and route to login
         }
       } else {
         setError(response);

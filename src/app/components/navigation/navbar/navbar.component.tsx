@@ -9,11 +9,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import HamburgerMenu from "../hamburger-menu/hamburger-menu.component";
 
 const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const router = useRouter();
+
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session]);
 
   const useMediaQuery = (width: number) => {
     const [targetReached, setTargetReached] = useState(false);
@@ -47,13 +53,6 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
 
     return targetReached;
   };
-
-  useEffect(() => {
-    if (!session) {
-      router.push("/login");
-      router.refresh();
-    }
-  }, [session]);
 
   const handleLogout = () => {
     signOut();
