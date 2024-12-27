@@ -11,7 +11,7 @@ interface Email {
   react: React.ReactElement;
 }
 
-export const sendEmail = async (payload: Email) => {
+export async function GET(payload: Email) {
   const { error } = await resend.emails.send({
     from: "The Conscious Cog Team <onboarding@resend.dev>",
     ...payload,
@@ -24,4 +24,4 @@ export const sendEmail = async (payload: Email) => {
 
   console.log("Email sent successfully");
   return true;
-};
+}
