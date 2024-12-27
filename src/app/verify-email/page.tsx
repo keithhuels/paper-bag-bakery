@@ -1,13 +1,8 @@
 import { Card, CardHeader, CardContent } from "@mui/material";
 import { sql } from "@vercel/postgres";
 import Link from "next/link";
-interface VerifyEmailPageProps {
-  searchParams: { [key: string]: string | undefined };
-}
 
-export default async function VerifyEmail({
-  searchParams,
-}: VerifyEmailPageProps) {
+export default async function VerifyEmail({ searchParams }: any) {
   let message = "Verifying email...";
   let verified = false;
 
