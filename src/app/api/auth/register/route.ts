@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
 import { sql } from "@vercel/postgres";
 import { generateSecureToken } from "../../../../utils/generate-token";
-import { sendEmail } from "../../emails/route";
+import { sendEmail } from "../emails/route";
 import EmailVerificationTemplate from "@/emails/email-verification-template";
 import React from "react";
 
