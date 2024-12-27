@@ -2,9 +2,32 @@ import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
 import { sql } from "@vercel/postgres";
 import { generateSecureToken } from "../../../../utils/generate-token";
-import { sendEmail } from "../emails/route";
 import EmailVerificationTemplate from "@/emails/email-verification-template";
 import React from "react";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+interface Email {
+  to: string[];
+  subject: string;
+  react: React.ReactElement;
+}
+
+async function sendEmail(payload: Email) {
+  const { error } = await resend.emails.send({
+    from: "The Conscious Cog Team <onboarding@resend.dev>",
+    ...payload,
+  });
+
+  if (error) {
+    console.error("Error sending email", error);
+    return null;
+  }
+
+  console.log("Email sent successfully");
+  return true;
+}
 
 export async function POST(request: Request) {
   try {
