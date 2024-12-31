@@ -9,15 +9,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import HamburgerMenu from "../hamburger-menu/hamburger-menu.component";
 
 const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const router = useRouter();
+  const verifyingEmail = useSearchParams().get("token");
 
   useEffect(() => {
-    if (!session) {
+    if (!session && !verifyingEmail) {
       router.push("/login");
+    }
+    if (session) {
+      router.refresh();
+      router.push("/dashboard");
     }
   }, [session]);
 

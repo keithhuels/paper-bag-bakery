@@ -57,7 +57,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
 
       if (response.ok) {
         if (response.status === 200) {
-          router.push("/verify-email");
+          router.push(`/verify-email?email=${email}`);
           router.refresh();
         }
       } else {
@@ -116,7 +116,9 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
         "An unknown input error occurred."
       );
     } else if (isRegistrationError) {
-      return "An error occured and we were not able to register your account.";
+      return error.status === 400
+        ? "An account already exists with this email."
+        : "An error occured and we were not able to register your account.";
     } else if (isSigninError) {
       return error.status === 401
         ? "Invalid email or password."

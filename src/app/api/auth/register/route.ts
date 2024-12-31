@@ -45,7 +45,7 @@ export async function POST(request: Request) {
       to: [formattedEmail],
       subject: "Verify your email address",
       react: React.createElement(EmailVerificationTemplate, {
-        username: email,
+        email: email,
         emailVerificationToken: emailVerificationToken,
       }),
     });

@@ -16,12 +16,10 @@ import * as React from "react";
 const baseUrl = process.env.VERCEL_URL ? `${process.env.VERCEL_URL}` : "";
 
 interface VerificationTemplateProps {
-  username: string;
   emailVerificationToken: string;
 }
 
 export const EmailVerificationTemplate = ({
-  username,
   emailVerificationToken,
 }: VerificationTemplateProps) => (
   <Tailwind
