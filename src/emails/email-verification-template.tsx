@@ -16,6 +16,7 @@ import * as React from "react";
 const baseUrl = process.env.VERCEL_URL ? `${process.env.VERCEL_URL}` : "";
 
 interface VerificationTemplateProps {
+  email: string;
   emailVerificationToken: string;
 }
 
