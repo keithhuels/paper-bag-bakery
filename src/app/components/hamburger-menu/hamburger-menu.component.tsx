@@ -8,15 +8,17 @@ import React from "react";
 
 const HamburgerMenu = ({
   session,
+  items,
 }: {
   session: Session | null;
+  items: string[];
 }): JSX.Element => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
   return (
@@ -36,15 +38,13 @@ const HamburgerMenu = ({
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem id="blog" onClick={handleClose}>
-          <Link href={session ? "/blog" : "/login"}>Blog</Link>
-        </MenuItem>
-        <MenuItem id="services" onClick={handleClose}>
-          <Link href={session ? "/services" : "/login"}>Services</Link>
-        </MenuItem>
-        <MenuItem id="contact" onClick={handleClose}>
-          <Link href={session ? "/contact" : "/login"}>Contact</Link>
-        </MenuItem>
+        {items.map((item) => (
+          <MenuItem id={item} key={item} onClick={handleClose}>
+            <Link href={session ? `/${item.toLowerCase()}` : "/login"}>
+              {item}
+            </Link>
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );

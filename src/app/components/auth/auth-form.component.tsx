@@ -88,7 +88,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
         redirect: false,
       });
       if (!signInResponse?.error) {
-        router.push("/");
+        router.push("/dashboard");
         router.refresh();
       } else {
         setError(signInResponse);

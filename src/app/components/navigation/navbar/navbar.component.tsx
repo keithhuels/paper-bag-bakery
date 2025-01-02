@@ -9,8 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import HamburgerMenu from "../hamburger-menu/hamburger-menu.component";
+import { useRouter, useSearchParams } from "next/navigation";
+import HamburgerMenu from "../../hamburger-menu/hamburger-menu.component";
+import { NAV_ITEMS } from "../../constants";
 
 const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const router = useRouter();
@@ -21,7 +22,6 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
       router.push("/login");
     }
     if (session) {
-      router.refresh();
       router.push("/dashboard");
     }
   }, [session]);
@@ -49,13 +49,11 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
       if (media.matches) {
         setTargetReached(true);
       }
-
       return () =>
         usingDeprecatedListener
           ? media.removeListener(updateTarget)
           : media.removeEventListener("change", updateTarget);
     });
-
     return targetReached;
   };
 
@@ -66,38 +64,26 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const isBreakpoint = useMediaQuery(768);
   return (
     <>
-      <div className="w-full h-30 bg-zinc-200 border-t-2 border-zinc-400 sticky top-0">
+      <div className="w-full h-30 border-t-2 border-b-2 border-zinc-400 sticky top-0">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             {!isBreakpoint ? (
               <div>
                 <ul className="hidden md:flex gap-x-6 text-black">
-                  <li>
-                    <Link href={session ? "/blog" : "/login"}>
-                      <button className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
-                        Blog
-                      </button>
+                  {NAV_ITEMS.map((item) => (
+                    <Link
+                      key={item}
+                      href={session ? `${item.toLowerCase()}` : "/login"}
+                      className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                    >
+                      {item}
                     </Link>
-                  </li>
-                  <li>
-                    <Link href={session ? "/services" : "/login"}>
-                      <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
-                        Services
-                      </button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={session ? "/contact" : "/login"}>
-                      <button className="hover:font-bold focus:shadow-lg focus:text-blue-800 focus:font-bold">
-                        Contact
-                      </button>
-                    </Link>
-                  </li>
+                  ))}
                 </ul>
               </div>
             ) : (
               <div className="ml-5">
-                <HamburgerMenu session={session} />
+                <HamburgerMenu session={session} items={NAV_ITEMS} />
               </div>
             )}
             <Logo />
