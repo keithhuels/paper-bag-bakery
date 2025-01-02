@@ -35,13 +35,21 @@ const Logo = () => {
   return (
     <>
       <div className="block w-50">
-        <Link href="/" style={{ display: showButton ? "none" : "block" }}>
+        <Link
+          href="/"
+          style={{
+            display: showButton ? "none" : "block",
+            height: "auto",
+            width: "auto",
+          }}
+        >
           <Image
             src="/images/conscious-cog-favicon.png"
+            priority
             alt="Logo"
-            width={"200"}
-            height={width < 1024 ? "45" : "74"}
-            className="flex relative"
+            width="150"
+            height="0"
+            className="flex relative w-full h-auto"
           />
         </Link>
         <div

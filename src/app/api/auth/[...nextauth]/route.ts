@@ -1,7 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-import { sql } from "@vercel/postgres";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const handler = NextAuth({
   session: {
@@ -17,9 +19,9 @@ const handler = NextAuth({
         password: {},
       },
       async authorize(credentials) {
-        const response = await sql`
-        SELECT * FROM users WHERE email=${credentials?.email.toLowerCase()}`;
-        const user = response.rows[0];
+        const user = await prisma.users.findFirst({
+          where: { email: credentials?.email.toLowerCase() },
+        });
 
         if (user) {
           const passwordCorrect = await compare(
@@ -28,7 +30,7 @@ const handler = NextAuth({
           );
           if (passwordCorrect) {
             return {
-              id: user.id,
+              id: user.toString(),
               email: user.email,
             };
           }

@@ -140,6 +140,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
             type="text"
             name="email"
             id="email"
+            autoComplete="on"
             className="mr-12 py-1.5 pr-10 text-gray-900 placeholder:text-gray-400 sm:text-sm/6"
             style={{ outline: "none" }}
             placeholder="Email"
@@ -154,6 +155,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
             type={showPassword ? "text" : "password"}
             name="password"
             id="password"
+            autoComplete="off"
             value={passwordInputValue}
             onChange={(e) => setPasswordInputValue(e.target.value)}
             className="mr-4 py-1.5 pr-10 text-gray-900 placeholder:text-gray-400 sm:text-sm/6"
@@ -188,6 +190,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
               name="confirmPassword"
               id="confirmPassword"
               value={confirmPasswordInputValue}
+              autoComplete="off"
               onChange={(e) => setConfirmPasswordInputValue(e.target.value)}
               className="mr-4 py-1.5 pr-10 text-gray-900 placeholder:text-gray-400 sm:text-sm/6"
               style={{ outline: "none" }}

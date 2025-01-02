@@ -1,32 +1,36 @@
-import { Card, CardHeader, CardContent } from "@mui/material";
-import { sql } from "@vercel/postgres";
+import { Card, CardContent } from "@mui/material";
 import Link from "next/link";
+import { PrismaClient } from "@prisma/client";
 
 export default async function VerifyEmail({ searchParams }: any) {
   let message = "Verifying email...";
   let title = "Verify your email";
   let verified = false;
-  console.log(searchParams);
+  const { token, email } = await searchParams;
+  const prisma = new PrismaClient();
 
-  if (searchParams.token) {
-    const user = await sql`
-    SELECT email FROM users
-    WHERE token = ${searchParams.token}`;
+  if (token) {
+    const user = await prisma.users.findFirst({
+      where: { token: { equals: token } },
+    });
 
-    if (!user) {
+    if (!user?.email) {
       message = "User not found. Check your email for the verification link.";
     } else {
-      await sql`
-        UPDATE users
-        SET verified = true, token = NULL
-        where token = ${searchParams.token}`;
-
-      title = "You're all set!";
-      message = `Thank you for verifying your email! You can log in with the link below.`;
-      verified = true;
+      await prisma.users.update({
+        where: { token: token },
+        data: {
+          verified: true,
+          token: null,
+        },
+      });
     }
+
+    title = "You're all set!";
+    message = `Thank you for verifying your email! You can log in with the link below.`;
+    verified = true;
   } else {
-    message = `We have sent a verification link to ${searchParams.email}. Please click on the link to complete the verification process.`;
+    message = `We have sent a verification link to ${email}. Please click on the link to complete the verification process.`;
   }
 
   return (

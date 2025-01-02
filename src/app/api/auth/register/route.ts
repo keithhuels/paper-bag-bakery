@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
-import { sql } from "@vercel/postgres";
 import { generateSecureToken } from "../../../../utils/generate-token";
 import EmailVerificationTemplate from "@/emails/email-verification-template";
 import React from "react";
 import { Resend } from "resend";
+import { PrismaClient } from "@prisma/client";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const prisma = new PrismaClient();
 
 interface Email {
   to: string[];
@@ -36,10 +37,13 @@ export async function POST(request: Request) {
     const hashedPassword = await hash(password, 10);
     const emailVerificationToken = generateSecureToken();
 
-    await sql`
-    INSERT INTO users(email, password, token)
-    VALUES (${formattedEmail}, ${hashedPassword}, ${emailVerificationToken})
-    `;
+    await prisma.users.create({
+      data: {
+        email: formattedEmail,
+        password: hashedPassword,
+        token: emailVerificationToken,
+      },
+    });
 
     await sendEmail({
       to: [formattedEmail],
@@ -50,7 +54,9 @@ export async function POST(request: Request) {
       }),
     });
   } catch (e: any) {
+    await prisma.$disconnect();
     return new NextResponse(e.message, { status: 400 });
   }
+  await prisma.$disconnect();
   return NextResponse.json({ message: "Success" });
 }
