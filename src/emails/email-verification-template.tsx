@@ -23,50 +23,38 @@ interface VerificationTemplateProps {
 export const EmailVerificationTemplate = ({
   emailVerificationToken,
 }: VerificationTemplateProps) => (
-  <Tailwind
-    config={{
-      theme: {
-        extend: {
-          colors: {
-            brand: "#007291",
-          },
-        },
-      },
-    }}
-  >
-    <Html>
-      <Head />
-      <Preview>A blog for developers. By developers.</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Img
-            src={"https://i.postimg.cc/ydQZH27r/logo.png"}
-            alt="Conscious Cog"
-            style={logo}
-          />
-          <Text style={paragraph}>
-            Thank you for signing up with Conscious Cog. Please confirm your
-            registration by clicking the button below.
-          </Text>
-          <Section style={btnContainer}>
-            <Button
-              className="bg-brand px-3 py-2 font-medium leading-4 text-white rounded-md"
-              href={`${baseUrl}/verify-email?token=${emailVerificationToken}`}
-            >
-              Confirm Email
-            </Button>
-          </Section>
-          <Text style={paragraph}>
-            Best,
-            <br />
-            The Conscious Cog team
-          </Text>
-          <Hr style={hr} />
-          <Text style={footer}>Conscious Cog</Text>
-        </Container>
-      </Body>
-    </Html>
-  </Tailwind>
+  <Html>
+    <Head />
+    <Preview>A blog for developers. By developers.</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img
+          src={"https://i.postimg.cc/ydQZH27r/logo.png"}
+          alt="Conscious Cog"
+          style={logo}
+        />
+        <Text style={paragraph}>
+          Thank you for signing up with Conscious Cog. Please confirm your
+          registration by clicking the button below.
+        </Text>
+        <Section style={btnContainer}>
+          <Button
+            className="bg-brand px-3 py-2 font-medium leading-4 text-white rounded-md"
+            href={`${baseUrl}/verify-email?token=${emailVerificationToken}`}
+          >
+            Confirm Email
+          </Button>
+        </Section>
+        <Text style={paragraph}>
+          Best,
+          <br />
+          The Conscious Cog team
+        </Text>
+        <Hr style={hr} />
+        <Text style={footer}>Conscious Cog</Text>
+      </Container>
+    </Body>
+  </Html>
 );
 
 export default EmailVerificationTemplate;
