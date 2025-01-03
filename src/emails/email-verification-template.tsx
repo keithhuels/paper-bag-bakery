@@ -51,7 +51,7 @@ export const EmailVerificationTemplate = ({
           <Section style={btnContainer}>
             <Button
               className="bg-brand px-3 py-2 font-medium leading-4 text-white rounded-md"
-              href={`${baseUrl}/verify-email?token=${emailVerificationToken}`}
+              href={`consciouscog.dev/verify-email?token=${emailVerificationToken}`}
             >
               Confirm Email
             </Button>
