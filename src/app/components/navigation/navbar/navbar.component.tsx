@@ -91,7 +91,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
               {!isBreakpoint &&
                 (session ? (
                   <div>
-                    <div className="mr-4">
+                    <div>
                       <p className="text-sm">You're signed in as:</p>
                       <p className="text-blue-500 "> {session.user?.email}</p>
                     </div>
