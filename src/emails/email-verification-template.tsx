@@ -52,7 +52,7 @@ export const EmailVerificationTemplate = ({
           The Conscious Cog team
         </Text>
         <Hr style={hr} />
-        <Text style={footer}>Conscious Cog</Text>
+        <Text style={footer}>Conscious Cog 2025</Text>
       </Container>
     </Body>
   </Html>
