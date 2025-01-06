@@ -12,6 +12,6 @@ CREATE TABLE "users" (
 -- CreateIndex
 CREATE UNIQUE INDEX "unique_email" ON "users"("email");
 
--- CreateIndex
+-- CreateIndex/
 CREATE UNIQUE INDEX "users_token_key" ON "users"("token");
 
