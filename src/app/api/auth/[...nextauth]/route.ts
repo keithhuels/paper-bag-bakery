@@ -28,7 +28,8 @@ const handler = NextAuth({
             credentials?.password || "",
             user.password,
           );
-          if (passwordCorrect) {
+          const verified = user.verified;
+          if (passwordCorrect && verified) {
             return {
               id: user.toString(),
               email: user.email,
