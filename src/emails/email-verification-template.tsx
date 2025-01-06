@@ -12,7 +12,9 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = process.env.VERCEL_URL ? `${process.env.VERCEL_URL}` : "";
+const baseUrl = process.env.VERIFY_EMAIL_URL
+  ? `${process.env.VERIFY_EMAIL_URL}`
+  : "";
 
 interface VerificationTemplateProps {
   email: string;
