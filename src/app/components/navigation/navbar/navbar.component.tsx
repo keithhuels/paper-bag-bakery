@@ -64,7 +64,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const isBreakpoint = useMediaQuery(768);
   return (
     <>
-      <div className="w-full h-30 border-t-2 border-b-2 border-zinc-400 sticky top-0">
+      <div className="w-full h-32 border-t-2 border-b-2 border-zinc-400 sticky top-0">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             {!isBreakpoint ? (
@@ -90,7 +90,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
             <div className="mr-5">
               {!isBreakpoint &&
                 (session ? (
-                  <div>
+                  <div className="w-200">
                     <div>
                       <p className="text-sm">You're signed in as:</p>
                       <p className="text-blue-500 "> {session.user?.email}</p>

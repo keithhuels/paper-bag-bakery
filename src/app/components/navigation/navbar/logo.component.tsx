@@ -47,7 +47,7 @@ const Logo = () => {
             src="/images/conscious-cog-favicon.png"
             priority
             alt="Logo"
-            width="150"
+            width="80"
             height="0"
             className="flex relative w-full h-auto"
           />
