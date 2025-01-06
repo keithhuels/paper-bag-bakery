@@ -40,7 +40,7 @@ export const EmailVerificationTemplate = ({
         </Text>
         <Section style={btnContainer}>
           <Button
-            className="bg-brand px-3 py-2 font-medium leading-4 text-white rounded-md"
+            style={button}
             href={`${baseUrl}/verify-email?token=${emailVerificationToken}`}
           >
             Confirm Email

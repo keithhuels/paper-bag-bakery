@@ -64,7 +64,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const isBreakpoint = useMediaQuery(768);
   return (
     <>
-      <div className="w-full h-32 border-t-2 border-b-2 border-zinc-400 sticky top-0">
+      <div className="w-full h-40 border-t-2 border-b-2 border-zinc-400 sticky top-0">
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             {!isBreakpoint ? (
