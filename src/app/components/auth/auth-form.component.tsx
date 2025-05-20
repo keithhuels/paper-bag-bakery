@@ -130,7 +130,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
 
   return (
     <form onSubmit={authFlow === "Login" ? handleLogin : handleRegister}>
-      <label className="flex justify-center text-brand-light text-3xl font-medium text-gray-900 m-8">
+      <label className="flex justify-center text-brand-dark text-3xl font-medium m-8">
         {authFlow}
       </label>
 
@@ -233,7 +233,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
 
       {authFlow === "Login" && (
         <div className="flex justify-center mt-4">
-          <p className="text-sm">
+          <p className="text-sm text-brand-dark">
             Don't have an account?{" "}
             <Link href="/register">
               <button className="text-brand-bread hover:text-brand-bread focus:text-brand-dark">

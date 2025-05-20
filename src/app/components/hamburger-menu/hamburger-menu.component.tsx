@@ -37,6 +37,11 @@ const HamburgerMenu = ({
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        PaperProps={{
+          sx: {
+            backgroundColor: '#f5f0e3',
+          },
+        }}
       >
         {items.map((item) => (
           <MenuItem id={item} key={item} onClick={handleClose}>
