@@ -13,6 +13,7 @@ export default {
         foreground: "var(--foreground)",
         brand: {
           light: '#f5f0e3',
+          selected: '#ffffff',
           bag: '#d8ad74',
           bread: '#d98a32',
           dark: '#3d2b14'

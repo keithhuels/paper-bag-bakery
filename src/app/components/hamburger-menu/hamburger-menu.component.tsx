@@ -40,7 +40,7 @@ const HamburgerMenu = ({
       >
         {items.map((item) => (
           <MenuItem id={item} key={item} onClick={handleClose}>
-            <Link href={session ? `/${item.toLowerCase()}` : "/login"}>
+            <Link href={`/${item.toLowerCase()}`}>
               {item}
             </Link>
           </MenuItem>

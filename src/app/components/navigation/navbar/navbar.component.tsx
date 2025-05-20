@@ -18,15 +18,6 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const router = useRouter();
   const verifyingEmail = useSearchParams().get("token");
 
-  useEffect(() => {
-    if (!session && !verifyingEmail) {
-      router.push("/login");
-    }
-    if (session) {
-      router.push("/dashboard");
-    }
-  }, [session]);
-
   const useMediaQuery = (width: number) => {
     const [targetReached, setTargetReached] = useState(false);
 
@@ -79,8 +70,11 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                   {NAV_ITEMS.map((item) => (
                     <Link
                       key={item}
-                      href={session ? `${item.toLowerCase()}` : "/login"}
-                      className="hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold m-4"
+                      href={!session && item === 'Order'
+                        ? '/login'
+
+                        : `${item.split(" ")[0].toLowerCase()}`}
+                      className="focus:underline  hover:font-bold focus:shadow-md focus:text-brand-selected focus:text-brand-bread focus:font-bold m-4"
                     >
                       {item}
                     </Link>
@@ -104,7 +98,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                     <div>
                       <button
                         onClick={handleLogout}
-                        className=" hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold"
+                        className=" hover:font-bold focus:shadow-xl focus:text-brand-selected focus:font-bold"
                       >
                         <FontAwesomeIcon icon={faRightFromBracket} /> Logout
                       </button>
@@ -112,7 +106,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                   </div>
                 ) : (
                   <Link href="/login">
-                    <button className="text-3xl text-brand-light font-bold hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold">
+                    <button className="focus:underline text-3xl text-brand-light font-bold hover:font-bold focus:shadow-md focus:text-brand-selected focus:font-bold">
                       <FontAwesomeIcon icon={faRightToBracket} /> Login
                     </button>
                   </Link>
