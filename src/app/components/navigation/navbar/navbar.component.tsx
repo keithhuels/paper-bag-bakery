@@ -83,7 +83,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                 </ul>
               </div>
             ) : (
-              <div className="ml-5 text-brand-light">
+              <div className="ml-10 text-brand-light">
                 < HamburgerMenu session={session} items={NAV_ITEMS} />
               </div>
             )}
