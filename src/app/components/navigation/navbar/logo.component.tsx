@@ -44,10 +44,10 @@ const Logo = () => {
           }}
         >
           <Image
-            src="/images/conscious-cog-favicon.png"
+            src="/images/paper-bag-bakery-favicon.png"
             priority
             alt="Logo"
-            width="70"
+            width="100"
             height="0"
             className="flex relative w-full h-auto"
           />

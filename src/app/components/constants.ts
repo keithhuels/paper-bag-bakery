@@ -1,1 +1,1 @@
-export const NAV_ITEMS = ["Blog", "Services", "Contact"];
+export const NAV_ITEMS = ["Order", "About Us", "Contact"];

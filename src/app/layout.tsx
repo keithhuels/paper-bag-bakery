@@ -23,7 +23,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "The Paper Bag Bakery",
-  description: "A Blog",
+  description: "Home-Baked Joy in Every Bag",
 };
 
 export default async function RootLayout({

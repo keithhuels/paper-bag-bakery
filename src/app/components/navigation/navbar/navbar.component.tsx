@@ -12,6 +12,7 @@ import { signOut } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import HamburgerMenu from "../../hamburger-menu/hamburger-menu.component";
 import { NAV_ITEMS } from "../../constants";
+import Image from "next/image";
 
 const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const router = useRouter();
@@ -64,17 +65,22 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
   const isBreakpoint = useMediaQuery(768);
   return (
     <>
-      <div className="w-full h-40 border-t-2 border-b-2 border-zinc-400 sticky top-0">
+      <div
+        className="w-full h-40 border-t-2 border-b-2 border-brand-dark sticky top-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/banner.png')",
+        }}
+      >
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
             {!isBreakpoint ? (
               <div>
-                <ul className="hidden md:flex gap-x-6 text-black">
+                <ul className=" text-3xl font-bold text-hidden md:flex gap-x-4 text-brand-light">
                   {NAV_ITEMS.map((item) => (
                     <Link
                       key={item}
                       href={session ? `${item.toLowerCase()}` : "/login"}
-                      className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                      className="hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold m-4"
                     >
                       {item}
                     </Link>
@@ -83,22 +89,22 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
               </div>
             ) : (
               <div className="ml-5">
-                <HamburgerMenu session={session} items={NAV_ITEMS} />
+                < HamburgerMenu session={session} items={NAV_ITEMS} />
               </div>
             )}
             <Logo />
-            <div className="mr-5">
+            <div className="m-40">
               {!isBreakpoint &&
                 (session ? (
                   <div className="w-200">
                     <div>
                       <p className="text-sm">You're signed in as:</p>
-                      <p className="text-blue-500 "> {session.user?.email}</p>
+                      <p className="text-brand-bread"> {session.user?.email}</p>
                     </div>
                     <div>
                       <button
                         onClick={handleLogout}
-                        className=" hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                        className=" hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold"
                       >
                         <FontAwesomeIcon icon={faRightFromBracket} /> Logout
                       </button>
@@ -106,7 +112,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                   </div>
                 ) : (
                   <Link href="/login">
-                    <button className="text-lg hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
+                    <button className="text-3xl text-brand-light font-bold hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold">
                       <FontAwesomeIcon icon={faRightToBracket} /> Login
                     </button>
                   </Link>
@@ -116,7 +122,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                   <FontAwesomeIcon icon={faRightFromBracket} />
                   <button
                     onClick={handleLogout}
-                    className="hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold"
+                    className="hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold"
                   >
                     Logout
                   </button>
@@ -125,7 +131,7 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
               {isBreakpoint && !session && (
                 <Link href="/login">
                   <FontAwesomeIcon className="mr-1" icon={faRightToBracket} />
-                  <button className="text-lg hover:font-bold focus:shadow-md focus:text-blue-800 focus:font-bold">
+                  <button className="text-lg text-brand-light hover:font-bold focus:shadow-md focus:text-brand-bread focus:font-bold">
                     Login
                   </button>
                 </Link>

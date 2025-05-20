@@ -130,12 +130,12 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
 
   return (
     <form onSubmit={authFlow === "Login" ? handleLogin : handleRegister}>
-      <label className="flex justify-center text-3xl font-medium text-gray-900 m-8">
+      <label className="flex justify-center text-brand-light text-3xl font-medium text-gray-900 m-8">
         {authFlow}
       </label>
 
       <div className="flex justify-center mt-4">
-        <div className="rounded-md pl-4 ring-1 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600">
+        <div className="rounded-md pl-4 ring-1 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-brown-600 bg-white">
           <input
             type="text"
             name="email"
@@ -150,7 +150,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
       </div>
 
       <div className="flex justify-center mt-4">
-        <div className="rounded-md pl-4 ring-1 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600">
+        <div className="rounded-md pl-4 ring-1 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-brown-600 bg-white">
           <input
             type={showPassword ? "text" : "password"}
             name="password"
@@ -184,7 +184,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
 
       {authFlow === "Create Account" && (
         <div className="flex justify-center mt-4">
-          <div className="rounded-md pl-4 ring-1 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-blue-600">
+          <div className="rounded-md pl-4 ring-1 ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-brown-600 bg-white">
             <input
               type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
@@ -225,7 +225,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
       <div className="flex justify-center mt-4">
         <button
           type="submit"
-          className="h-10 rounded-lg border-2 font-bold bg-blue-400 hover:bg-blue-200 px-5 focus:bg-blue-300"
+          className="h-10 rounded-lg text-brand-dark border-2 font-bold bg-brand-bread hover:bg-brand-bag px-5 focus:bg-brand-bread"
         >
           {authFlow}
         </button>
@@ -236,7 +236,7 @@ const AuthForm = ({ authFlow }: { authFlow: string }) => {
           <p className="text-sm">
             Don't have an account?{" "}
             <Link href="/register">
-              <button className="text-blue-500 hover:text-blue-300 focus:text-blue-200">
+              <button className="text-brand-bread hover:text-brand-bread focus:text-brand-dark">
                 Create one!
               </button>
             </Link>
