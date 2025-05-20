@@ -17,7 +17,7 @@ interface Email {
 
 async function sendEmail(payload: Email) {
   const { error } = await resend.emails.send({
-    from: "The Conscious Cog Team <onboarding@consciouscog.dev>",
+    from: "The The Paper Bag Bakery Team <onboarding@consciouscog.dev>",
     ...payload,
   });
 

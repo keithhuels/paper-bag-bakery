@@ -4,7 +4,7 @@ export default function HomePage() {
     <>
       <div className="flex justify-center p-3">
         <div>
-          <h1>Welcome to Conscious Cog: A blog for software developers!</h1>
+          <h1>Welcome to The Paper Bag Bakery: A blog for software developers!</h1>
         </div>
       </div>
       <div className="flex justify-center "></div>

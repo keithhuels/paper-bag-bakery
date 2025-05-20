@@ -22,7 +22,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Conscious Cog",
+  title: "The Paper Bag Bakery",
   description: "A Blog",
 };
 

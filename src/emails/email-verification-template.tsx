@@ -31,11 +31,11 @@ export const EmailVerificationTemplate = ({
       <Container style={container}>
         <Img
           src={"https://i.postimg.cc/ydQZH27r/logo.png"}
-          alt="Conscious Cog"
+          alt="The Paper Bag Bakery"
           style={logo}
         />
         <Text style={paragraph}>
-          Thank you for signing up with Conscious Cog. Please confirm your
+          Thank you for signing up with The Paper Bag Bakery. Please confirm your
           registration by clicking the button below.
         </Text>
         <Section style={btnContainer}>
@@ -49,10 +49,10 @@ export const EmailVerificationTemplate = ({
         <Text style={paragraph}>
           Best,
           <br />
-          The Conscious Cog team
+          The The Paper Bag Bakery team
         </Text>
         <Hr style={hr} />
-        <Text style={footer}>Conscious Cog 2025</Text>
+        <Text style={footer}>The Paper Bag Bakery 2025</Text>
       </Container>
     </Body>
   </Html>
