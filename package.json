@@ -22,7 +22,7 @@
     "@react-email/components": "0.0.29",
     "bcrypt": "^5.1.1",
     "crypto": "^1.0.1",
-    "next": "15.0.3",
+    "next": "^15.0.5",
     "next-auth": "^4.24.10",
     "react": "^18",
     "react-dom": "^18",

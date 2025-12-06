@@ -73,7 +73,6 @@ const NavBar = ({ session }: { session: Session | null }): JSX.Element => {
                       key={item}
                       href={!session && item === 'Order'
                         ? '/login'
-
                         : `${item.split(" ")[0].toLowerCase()}`}
                       className="focus:underline  hover:font-bold focus:shadow-md focus:text-brand-selected focus:text-brand-bread focus:font-bold m-4"
                     >
